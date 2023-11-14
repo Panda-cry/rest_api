@@ -1,43 +1,46 @@
-import uuid
-from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from db import stores
 from schemas.store_schema import StoreSchema
-
+from sqlalchemy.exc import IntegrityError,SQLAlchemyError
+from db import db
+from  models import StoreModel
 blp = Blueprint("stores", __name__, description="CRUD operations on store")
 
 
 @blp.route("/store/<string:store_id>")
 class Store(MethodView):
+
+    @blp.response(200,StoreSchema)
     def get(self, store_id):
-        try:
-            return stores[store_id]
-        except KeyError:
-            abort(404, message="Store not found")
+        store = StoreModel.query.get_or_404(store_id)
+        return store
 
     def delete(self, store_id):
-        if store_id not in stores:
-            abort(400, message="We don't have that store!!!")
-        stores.pop(store_id)
-
-        return {"store_id": store_id}
+        store = StoreModel.query.get_or_404(store_id)
+        db.session.delete(store)
+        db.session.commit()
+        return {"message": f"We deleted store with: {store_id} id"}
 
 
 @blp.route("/store")
 class StoreList(MethodView):
 
+    @blp.response(200,StoreSchema(many=True))
     def get(self):
-        return {"stores": list(stores.values())}
+        return StoreModel.query.all()
 
     @blp.arguments(StoreSchema)
+    @blp.response(201,StoreSchema)
     def post(self, store_data):
-
-        for store in stores.values():
-            if store_data.get('name') == store.get('name'):
-                abort(400, message="We contain that store!")
-
-        store_id = uuid.uuid4().hex
-        new_store = {**store_data, "id": store_id}
-        stores[store_id] = new_store
-        return new_store, 201
+        store = StoreModel(**store_data)
+        try:
+            db.session.add(store)
+            db.session.commit()
+        except IntegrityError:
+            abort(
+                400,
+                message="A store with that name already exists.",
+            )
+        except SQLAlchemyError:
+            abort(500, message="An error occurred while inserting the item.")
+        return store

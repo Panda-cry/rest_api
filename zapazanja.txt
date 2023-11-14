@@ -8,3 +8,23 @@ run -dp 5001:5000 -w /app -v /home/gecko/Desktop/repos/rest_api/:/app
 
 kao sto je ovde port kompa i port kontejnera
 tako je i putanja do projekta i app gde se nalazi kopirani projekat
+
+
+
+Neka zapazanja koja sam uspeo da uhvatim
+flask restfull i flask smorest su nastali na bazi flaska
+i koriste flask kao web server
+
+Praksa koju uvode ova 2 frameworka je da se rute kreiraju preko klassa
+tj class based views, a ne kao ranije function based views
+radi citiljivijeg koda i bolje raspodele.
+Mozemo da podelimo na neke Blueprintove koji predstavljaju sablone
+koje kasnije registrujemo i mozemo da okidamo
+smorest je bolji od restfula jer je ugradjen swagger i bazira se
+na marshmallow validaaciji sto olaksava zivot razvijanja aplikacija
+
+u flasku smo mogli da pravimo class based views ali smo morali da registrujemo
+klase na malo drugaciji nacin i malo kompleksniji.
+
+Flask restfull i smorest su bolji jer olaksavaju koriscenje i baza i validacije
+polja tj mozemo kroz par dekoratora da izgradimo rutu a ne da kuckamo sve ispocetka
