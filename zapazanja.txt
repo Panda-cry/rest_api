@@ -1,0 +1,10 @@
+EXPOSE treba da opise da trenutni kontejner treba da zna
+da ce se npr 5000 port koristiti i da ga ostavi za slusanje
+dok kada se radi run docker kontejnera
+mapiranje portova moj_port racunara : exposed_port_kontejnera :D
+
+
+run -dp 5001:5000 -w /app -v /home/gecko/Desktop/repos/rest_api/:/app
+
+kao sto je ovde port kompa i port kontejnera
+tako je i putanja do projekta i app gde se nalazi kopirani projekat
