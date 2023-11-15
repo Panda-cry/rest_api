@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from schemas.item_schema import ItemSchema, ItemUpdateSchema
+from schemas.schemas import ItemSchema,ItemUpdateSchema
 from models import ItemModel
 from db import db
 from sqlalchemy.exc import SQLAlchemyError
@@ -12,7 +12,10 @@ class Item(MethodView):
 
     @blp.response(200,ItemSchema)
     def get(self, item_id):
-        item = ItemModel.query.get_or_404(item_id)
+        item: ItemModel = ItemModel.query.get_or_404(item_id)
+        print(item)
+        sc = ItemSchema().dump(item)
+        print(sc)
         return item
 
     def delete(self, item_id):
@@ -63,7 +66,6 @@ class ItemsList(MethodView):
     @blp.response(201,ItemSchema)
     def post(self,request_data):
         #ovde je raspakovan dict moramo da ga zapakujemo i posaljemo dalje
-
         item = ItemModel(**request_data)
         try:
             db.session.add(item)

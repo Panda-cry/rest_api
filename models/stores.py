@@ -8,4 +8,5 @@ class StoreModel(db.Model):
     name = db.Column(db.String(80),unique=True,nullable=False)
     #Po meni cascade je ok za neke slucajeve ali nije ok
     #da brisemo sve sto je bilo povezano sa tim Store!!!
-    items = db.relationship("ItemModel",back_populates="store",lazy="dynamic",cascade="all, delete")
+    items = db.relationship("ItemModel",back_populates="store",lazy="dynamic")
+    tags = db.relationship("TagModel",back_populates="store",lazy="dynamic")
