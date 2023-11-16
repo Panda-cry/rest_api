@@ -23,6 +23,8 @@ pg_pass = "7OqRu1iHlVeLB7O8suzjZRl8MUxqGkeN"
 internal_url = "postgresql://test:7OqRu1iHlVeLB7O8suzjZRl8MUxqGkeN@dpg-clavig616hkc73816s70-a/test_pan1"
 external_url = "postgresql://test:7OqRu1iHlVeLB7O8suzjZRl8MUxqGkeN@dpg-clavig616hkc73816s70-a.frankfurt-postgres.render.com/test_pan1"
 pg_command = "PGPASSWORD=7OqRu1iHlVeLB7O8suzjZRl8MUxqGkeN psql -h dpg-clavig616hkc73816s70-a.frankfurt-postgres.render.com -U test test_pan1"
+
+local_pg ="postgresql://eclecticiq:test@localhost:5432/rest_api"
 def create_app():
     app = Flask(__name__)
     app.config["PROPAGETE_EXCEPTIONS"] = True
@@ -34,7 +36,7 @@ def create_app():
     app.config[
         "OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config[
-        "SQLALCHEMY_DATABASE_URI"] = external_url
+        "SQLALCHEMY_DATABASE_URI"] = local_pg
     app.config[
         'SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Ovo se često postavlja na False da bi se izbegli upozorenja
     app.config['JWT_SECRET_KEY'] = "rest_api"

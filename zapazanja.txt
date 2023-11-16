@@ -28,3 +28,12 @@ klase na malo drugaciji nacin i malo kompleksniji.
 
 Flask restfull i smorest su bolji jer olaksavaju koriscenje i baza i validacije
 polja tj mozemo kroz par dekoratora da izgradimo rutu a ne da kuckamo sve ispocetka
+
+
+
+
+kada se stavljaju neke stvari ja sam sada ukapirao
+kada se setuje app bolje je koristiti loadenv i ucitavati tako varijable
+jer ce npr app za produkciju uvek da nam daju da setujemo neke varijable i to bi nam znacilo dosta
+da ne bude neka fiksna vrednost pa se zeznemo pa ponovo deploy
+lako je za male app ali sta raditi kada se deploy radi nekih 30- ak min !!!
