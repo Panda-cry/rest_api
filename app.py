@@ -34,7 +34,7 @@ def create_app():
     app.config[
         "OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config[
-        "SQLALCHEMY_DATABASE_URI"] = external_url
+        "SQLALCHEMY_DATABASE_URI"] = internal_url
     app.config[
         'SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Ovo se često postavlja na False da bi se izbegli upozorenja
     app.config['JWT_SECRET_KEY'] = "rest_api"
